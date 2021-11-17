@@ -11,7 +11,7 @@ class GrayForecast():
                 self.data.columns = ['ElevationData']
             except:
                 if not datacolumn:
-                    raise Exception('Multiple data frames has been entered')
+                    raise Exception
                 else:
                     self.data = pd.DataFrame(data[datacolumn])
                     self.data.columns=['ElevationData']
@@ -27,9 +27,9 @@ class GrayForecast():
         else:
             self.datacolumn = None
 
-    def GM_11_build_model(self, forecast=5):
+    def GMmakemodel(self, forecast=5):
         if forecast > len(self.data):
-            raise Exception('您的数据行不够')
+            raise Exception
         X_0 = np.array(self.forecast_list['ElevationData'].tail(forecast))
         X_1 = np.zeros(X_0.shape)
         for i in range(X_0.shape[0]):
@@ -55,7 +55,7 @@ class GrayForecast():
 
     def forecast(self, time=5, forecast_data_len=5):
         for i in range(time):
-            self.GM_11_build_model(forecast=forecast_data_len)
+            self.GMmakemodel(forecast=forecast_data_len)
 
     def log(self):
         res = self.forecast_list.copy()
@@ -70,8 +70,4 @@ class GrayForecast():
 
 gf = GrayForecast([12902678.34,12474061.06,11997350.86,11617700.42,11528992.9,11553500.51,11531363.09])
 gf.forecast(370)
-gf.log().to_csv('aforecast.csv')
-
-
-
-
+gf.log().to_csv('111forecast.csv')
